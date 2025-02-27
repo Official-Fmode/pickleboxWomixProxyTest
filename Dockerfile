@@ -42,7 +42,10 @@ COPY --from=builder /opt/womginx /opt/womginx
 # Use the modified nginx.conf
 RUN cp /opt/womginx/nginx.conf /etc/nginx/nginx.conf
 
+# Ensure docker-entrypoint.sh is executable
+RUN chmod +x /opt/womginx/docker-entrypoint.sh
+
 # Verify nginx.conf syntax
 RUN nginx -t
 
-CMD /opt/womginx/docker-entrypoint.sh
+CMD ["/opt/womginx/docker-entrypoint.sh"]
